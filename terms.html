@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Crime Classification System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a8a, #3730a3);
+            padding: 0.75rem 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 35px;
+            height: 35px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            overflow: hidden;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .btn {
+            padding: 0.5rem 1.25rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: #1e3a8a;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, #1e3a8a, #3730a3);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero-banner p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .last-updated {
+            background: #e0e7ff;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section h2 {
+            color: #1e3a8a;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .section h3 {
+            color: #3730a3;
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .section p {
+            color: #64748b;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .section ul, .section ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section li {
+            color: #64748b;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            border-left: 4px solid #dc2626;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .warning-box strong {
+            color: #991b1b;
+        }
+
+        .warning-box p {
+            color: #991b1b;
+            margin: 0;
+        }
+
+        .info-box {
+            background: #dbeafe;
+            border-left: 4px solid #2563eb;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .info-box strong {
+            color: #1e3a8a;
+        }
+
+        .info-box p {
+            color: #1e40af;
+            margin: 0;
+        }
+
+        .acceptance-box {
+            background: linear-gradient(135deg, #1e3a8a, #3730a3);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .acceptance-box h3 {
+            margin-bottom: 1rem;
+        }
+
+        .acceptance-box p {
+            color: white;
+            opacity: 0.9;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #1e3a8a, #3730a3);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #fbbf24;
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner h1 {
+                font-size: 2rem;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .content {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <img src="West_Bengal_Police_Logo.svg.png" alt="Police Badge">
+                </div>
+                <span>Police Dept.</span>
+            </a>
+            <a href="index.html" class="btn btn-outline">Back to Home</a>
+        </div>
+    </header>
+
+    <section class="hero-banner">
+        <h1>Terms of Service</h1>
+        <p>Guidelines for authorized use of the Crime Classification System</p>
+    </section>
+
+    <div class="content">
+        <div class="last-updated">
+            <i data-lucide="calendar"></i>
+            Last Updated: January 1, 2025
+        </div>
+
+        <div class="acceptance-box">
+            <h3>Agreement to Terms</h3>
+            <p>By accessing and using this system, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
+        </div>
+
+        <section class="section">
+            <h2>1. System Access and Authorization</h2>
+            
+            <h3>1.1 Authorized Users</h3>
+            <p>This system is exclusively designed for and restricted to authorized law enforcement personnel. To use this system, you must:</p>
+            <ul>
+                <li>Be an active member of a recognized law enforcement agency</li>
+                <li>Possess valid credentials issued by your department</li>
+                <li>Have completed required security clearance procedures</li>
+                <li>Maintain active duty status throughout system usage</li>
+            </ul>
+
+            <h3>1.2 Account Registration</h3>
+            <p>When creating an account, you agree to:</p>
+            <ul>
+                <li>Provide accurate, current, and complete information</li>
+                <li>Maintain and promptly update your account information</li>
+                <li>Maintain the security of your login credentials</li>
+                <li>Accept responsibility for all activities under your account</li>
+                <li>Immediately notify us of any unauthorized access</li>
+            </ul>
+
+            <h3>1.3 Account Verification</h3>
+            <p>All accounts are subject to verification by system administrators. We reserve the right to refuse service, terminate accounts, or remove content at our discretion.</p>
+        </section>
+
+        <div class="warning-box">
+            <strong>CRITICAL WARNING:</strong>
+            <p>Unauthorized access to this system is strictly prohibited and may result in criminal prosecution under applicable laws including the Information Technology Act, 2000, and other relevant statutes. All access attempts are logged and monitored.</p>
+        </div>
+
+        <section class="section">
+            <h2>2. Acceptable Use Policy</h2>
+            
+            <h3>2.1 Permitted Uses</h3>
+            <p>You may use this system only for:</p>
+            <ul>
+                <li>Reporting and documenting criminal incidents</li>
+                <li>Accessing crime statistics and analytics</li>
+                <li>Conducting authorized investigations</li>
+                <li>Generating reports for official law enforcement purposes</li>
+                <li>Collaborating with other authorized personnel</li>
+            </ul>
+
+            <h3>2.2 Prohibited Activities</h3>
+            <p>You expressly agree NOT to:</p>
+            <ul>
+                <li>Share your login credentials with unauthorized individuals</li>
+                <li>Access or attempt to access data you are not authorized to view</li>
+                <li>Use the system for personal, commercial, or non-official purposes</li>
+                <li>Modify, copy, or reverse-engineer any part of the system</li>
+                <li>Introduce viruses, malware, or any harmful code</li>
+                <li>Interfere with system security features or access controls</li>
+                <li>Extract data for unauthorized databases or applications</li>
+                <li>Misrepresent your identity or affiliation</li>
+                <li>Submit false, misleading, or fabricated information</li>
+                <li>Use automated tools to access or scrape system data</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>3. Data Accuracy and Responsibility</h2>
+            
+            <h3>3.1 Information Accuracy</h3>
+            <p>You are responsible for ensuring that all information you submit is:</p>
+            <ul>
+                <li>Accurate and truthful to the best of your knowledge</li>
+                <li>Complete and contains all relevant details</li>
+                <li>Based on factual evidence and observations</li>
+                <li>Properly classified according to system guidelines</li>
+            </ul>
+
+            <h3>3.2 Evidence Handling</h3>
+            <p>When uploading evidence or supporting documents:</p>
+            <ul>
+                <li>Ensure files are relevant to the case</li>
+                <li>Do not upload corrupted or infected files</li>
+                <li>Respect chain of custody requirements</li>
+                <li>Follow departmental evidence handling procedures</li>
+            </ul>
+
+            <h3>3.3 Corrections and Updates</h3>
+            <p>You must promptly update or correct any information that is found to be inaccurate or incomplete.</p>
+        </section>
+
+        <section class="section">
+            <h2>4. Confidentiality and Data Protection</h2>
+            
+            <h3>4.1 Confidential Information</h3>
+            <p>You acknowledge that all information accessed through this system is highly confidential and sensitive. You agree to:</p>
+            <ul>
+                <li>Maintain strict confidentiality of all system data</li>
+                <li>Not disclose information to unauthorized parties</li>
+                <li>Follow all applicable privacy laws and regulations</li>
+                <li>Protect the identity of victims, witnesses, and informants</li>
+            </ul>
+
+            <h3>4.2 Data Security Obligations</h3>
+            <p>You must:</p>
+            <ul>
+                <li>Use secure networks when accessing the system</li>
+                <li>Never access the system from public or unsecured devices</li>
+                <li>Lock your device when stepping away from it</li>
+                <li>Log out completely after each session</li>
+                <li>Report any suspected security breaches immediately</li>
+            </ul>
+        </section>
+
+        <div class="info-box">
+            <strong>Data Protection:</strong>
+            <p>All data entered into this system is subject to the provisions of the Information Technology Act, 2000, and departmental data protection policies. Unauthorized disclosure may result in disciplinary action and legal consequences.</p>
+        </div>
+
+        <section class="section">
+            <h2>5. Intellectual Property Rights</h2>
+            
+            <h3>5.1 System Ownership</h3>
+            <p>The Crime Classification & Monitoring System, including all software, content, designs, and documentation, is owned by the West Bengal Police Department and its licensors. All rights are reserved.</p>
+
+            <h3>5.2 Limited License</h3>
+            <p>We grant you a limited, non-exclusive, non-transferable license to access and use the system solely for authorized law enforcement purposes.</p>
+
+            <h3>5.3 User-Generated Content</h3>
+            <p>By submitting reports and data, you grant us the right to use, store, and process such information for system operation and law enforcement purposes.</p>
+        </section>
+
+        <section class="section">
+            <h2>6. System Availability and Maintenance</h2>
+            
+            <h3>6.1 Service Availability</h3>
+            <p>While we strive for 24/7 availability, we do not guarantee uninterrupted access. The system may be unavailable due to:</p>
+            <ul>
+                <li>Scheduled maintenance and updates</li>
+                <li>Emergency security patches</li>
+                <li>Technical difficulties or system failures</li>
+                <li>Events beyond our reasonable control</li>
+            </ul>
+
+            <h3>6.2 System Modifications</h3>
+            <p>We reserve the right to modify, update, or discontinue any feature or functionality at any time without prior notice.</p>
+        </section>
+
+        <section class="section">
+            <h2>7. Disclaimers and Limitations</h2>
+            
+            <h3>7.1 "As Is" Provision</h3>
+            <p>The system is provided "as is" and "as available" without warranties of any kind, either express or implied.</p>
+
+            <h3>7.2 AI Classification</h3>
+            <p>While our AI classification system is highly accurate, it is not infallible. Officers must review and verify all AI-generated classifications and recommendations.</p>
+
+            <h3>7.3 Limitation of Liability</h3>
+            <p>To the maximum extent permitted by law, we shall not be liable for any indirect, incidental, consequential, or punitive damages arising from system use.</p>
+        </section>
+
+        <section class="section">
+            <h2>8. Monitoring and Compliance</h2>
+            
+            <h3>8.1 System Monitoring</h3>
+            <p>All system activity is monitored and logged. We reserve the right to:</p>
+            <ul>
+                <li>Monitor user activity and access patterns</li>
+                <li>Review submitted content for compliance</li>
+                <li>Investigate suspicious or unauthorized activity</li>
+                <li>Audit system usage and data integrity</li>
+            </ul>
+
+            <h3>8.2 Audit Trails</h3>
+            <p>Complete audit trails are maintained for all system interactions, including:</p>
+            <ul>
+                <li>Login/logout times and IP addresses</li>
+                <li>Data access and modifications</li>
+                <li>Report submissions and updates</li>
+                <li>Search queries and exports</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>9. Violations and Consequences</h2>
+            
+            <h3>9.1 Terms Violations</h3>
+            <p>Violation of these Terms of Service may result in:</p>
+            <ul>
+                <li>Immediate suspension of account access</li>
+                <li>Permanent termination of user privileges</li>
+                <li>Reporting to supervising officers and department heads</li>
+                <li>Disciplinary action per departmental policies</li>
+                <li>Criminal prosecution where applicable</li>
+            </ul>
+
+            <h3>9.2 Investigation Cooperation</h3>
+            <p>You agree to fully cooperate with any investigations into Terms violations or security breaches.</p>
+        </section>
+
+        <section class="section">
+            <h2>10. Termination</h2>
+            
+            <h3>10.1 Voluntary Termination</h3>
+            <p>You may request account termination by contacting system administrators. Upon termination:</p>
+            <ul>
+                <li>Your access will be revoked immediately</li>
+                <li>Your submitted data will be retained per legal requirements</li>
+                <li>You remain bound by confidentiality obligations</li>
+            </ul>
+
+            <h3>10.2 Involuntary Termination</h3>
+            <p>We may terminate your access immediately if:</p>
+            <ul>
+                <li>You violate these Terms of Service</li>
+                <li>Your employment or duty status changes</li>
+                <li>We receive a termination request from your department</li>
+                <li>System security is compromised</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>11. Governing Law and Jurisdiction</h2>
+            <p>These Terms shall be governed by the laws of India. Any disputes arising from system use shall be subject to the exclusive jurisdiction of courts in West Bengal.</p>
+        </section>
+
+        <section class="section">
+            <h2>12. Changes to Terms</h2>
+            <p>We reserve the right to modify these Terms at any time. Changes will be effective upon posting to the system. Continued use after changes constitutes acceptance of modified Terms.</p>
+            <p>Significant changes will be communicated through:</p>
+            <ul>
+                <li>Email notifications</li>
+                <li>System dashboard alerts</li>
+                <li>Login screen notices</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>13. Severability</h2>
+            <p>If any provision of these Terms is found to be unenforceable or invalid, the remaining provisions shall continue in full force and effect.</p>
+        </section>
+
+        <section class="section">
+            <h2>14. Contact Information</h2>
+            <p>For questions regarding these Terms of Service, contact:</p>
+            <ul>
+                <li><strong>Legal Department:</strong> legal@crimesystem.gov.in</li>
+                <li><strong>System Administrator:</strong> admin@crimesystem.gov.in</li>
+                <li><strong>Phone:</strong> 1800-XXX-XXXX</li>
+                <li><strong>Address:</strong> West Bengal Police Headquarters, Nabanna, Howrah - 711102</li>
+            </ul>
+        </section>
+
+        <div class="warning-box">
+            <strong>Acknowledgment Required:</strong>
+            <p>By creating an account and using this system, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service. Your continued use constitutes ongoing acceptance of these terms and any future modifications.</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="help.html">Help</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
+        </div>
+        <p>&copy; 2025 Crime Classification & Monitoring System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

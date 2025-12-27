@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Analytics Dashboard - Police Department</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0a0e1a, #1a1f35);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .title {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-resolve {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-resolve:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-resolve:disabled {
+            background: #6b7280;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .dashboard-header h1 {
+            color: #ffffff;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .dashboard-header p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            border-left: 5px solid;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+        }
+
+        .stat-card.total {
+            border-left-color: #3b82f6;
+        }
+
+        .stat-card.pending {
+            border-left-color: #f59e0b;
+        }
+
+        .stat-card.resolved {
+            border-left-color: #10b981;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-title {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-card.total .stat-icon {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+
+        .stat-card.pending .stat-icon {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+        }
+
+        .stat-card.resolved .stat-icon {
+            background: linear-gradient(135deg, #34d399, #10b981);
+            color: white;
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .stat-change {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(59, 130, 246, 0.2);
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .chart-card {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .chart-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .chart-card h3 {
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 350px;
+        }
+
+        .recent-reports {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .recent-reports h3 {
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 12px;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .report-table thead {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+
+        .report-table th {
+            color: white;
+            font-weight: 700;
+            padding: 1.2rem 1rem;
+            text-align: left;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .report-table th:first-child {
+            border-top-left-radius: 12px;
+        }
+
+        .report-table th:last-child {
+            border-top-right-radius: 12px;
+        }
+
+        .report-table td {
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .report-table tbody tr {
+            transition: all 0.2s ease;
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        .report-table tbody tr:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: scale(1.01);
+        }
+
+        .status-badge {
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            text-transform: capitalize;
+        }
+
+        .status-resolved {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #065f46;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #94a3b8;
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+            color: #475569;
+        }
+
+        .empty-state h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #cbd5e1;
+        }
+
+        .empty-state p {
+            font-size: 1rem;
+        }
+
+        .error-message {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            color: #991b1b;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: none;
+            border-left: 5px solid #dc2626;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.2);
+        }
+
+        .error-message.show {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .error-message svg {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #065f46;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: none;
+            border-left: 5px solid #10b981;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+            animation: slideIn 0.3s ease;
+        }
+
+        .success-message.show {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+
+            .header {
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .title {
+                font-size: 1rem;
+                order: 3;
+                width: 100%;
+                text-align: center;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .stat-value {
+                font-size: 2.2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .report-table {
+                font-size: 0.85rem;
+            }
+
+            .report-table th,
+            .report-table td {
+                padding: 0.8rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🚔</div>
+                <span>Police Dept.</span>
+            </a>
+            <h1 class="title">Crime Analytics Dashboard</h1>
+            <div class="nav-links">
+                <a href="report.html" class="btn btn-secondary">
+                    <i data-lucide="file-plus"></i>
+                    New Report
+                </a>
+                <a href="index.html" class="btn btn-danger" onclick="handleLogout(event)">
+                    <i data-lucide="log-out"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+            <i data-lucide="check-circle"></i>
+            <div>
+                <strong>Success!</strong>
+                <p id="successText"></p>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" id="errorMessage">
+            <i data-lucide="alert-circle"></i>
+            <div>
+                <strong>Error Loading Data</strong>
+                <p id="errorText" style="white-space: pre-line;"></p>
+            </div>
+        </div>
+
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <h1>
+                <i data-lucide="layout-dashboard"></i>
+                Welcome, <span id="officerNameDisplay">Officer</span>
+            </h1>
+            <p>Real-time crime statistics and analytics for your department</p>
+        </div>
+
+        <!-- Statistics Cards (3 Cards Only) -->
+        <div class="stats-grid">
+            <div class="stat-card total">
+                <div class="stat-header">
+                    <span class="stat-title">Total Cases</span>
+                    <div class="stat-icon">
+                        <i data-lucide="folder"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="totalCases">
+                    <div class="loading-spinner"></div>
+                </div>
+                <div class="stat-change">
+                    <i data-lucide="trending-up"></i>
+                    All time records
+                </div>
+            </div>
+
+            <div class="stat-card pending">
+                <div class="stat-header">
+                    <span class="stat-title">Pending Cases</span>
+                    <div class="stat-icon">
+                        <i data-lucide="clock"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="pendingCases">
+                    <div class="loading-spinner"></div>
+                </div>
+                <div class="stat-change">
+                    <i data-lucide="alert-circle"></i>
+                    Requires attention
+                </div>
+            </div>
+
+            <div class="stat-card resolved">
+                <div class="stat-header">
+                    <span class="stat-title">Resolved Cases</span>
+                    <div class="stat-icon">
+                        <i data-lucide="check-circle"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="resolvedCases">
+                    <div class="loading-spinner"></div>
+                </div>
+                <div class="stat-change">
+                    <i data-lucide="check"></i>
+                    Successfully closed
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-section">
+            <!-- City Distribution Chart -->
+            <div class="chart-card">
+                <h3>
+                    <i data-lucide="map-pin"></i>
+                    Crime Distribution by City
+                </h3>
+                <div class="chart-container">
+                    <canvas id="cityChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Crime Categories Chart -->
+            <div class="chart-card">
+                <h3>
+                    <i data-lucide="pie-chart"></i>
+                    Crime Categories Distribution
+                </h3>
+                <div class="chart-container">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Monthly Trend Chart -->
+            <div class="chart-card full-width">
+                <h3>
+                    <i data-lucide="trending-up"></i>
+                    Monthly Crime Trend (Last 6 Months)
+                    <button class="refresh-btn" onclick="loadDashboardData()" style="margin-left: auto;">
+                        <i data-lucide="refresh-cw"></i>
+                        Refresh
+                    </button>
+                </h3>
+                <div class="chart-container">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Reports Table (Without Severity Column) -->
+        <div class="recent-reports">
+            <h3>
+                <i data-lucide="list"></i>
+                Recent Crime Reports
+            </h3>
+            <div class="table-responsive">
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Report ID</th>
+                            <th>Date</th>
+                            <th>Crime Type</th>
+                            <th>Location</th>
+                            <th>City</th>
+                            <th>IPC Section</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportsTableBody">
+                        <tr>
+                            <td colspan="7">
+                                <div class="empty-state">
+                                    <div class="loading-spinner"></div>
+                                    <h4>Loading Reports...</h4>
+                                    <p>Please wait while we fetch the latest crime reports</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const BACKEND_URL = 'http://localhost:5000';
+        
+        // Chart instances
+        let cityChart = null;
+        let categoryChart = null;
+        let trendChart = null;
+
+        // Chart.js default dark theme configuration
+        Chart.defaults.color = '#cbd5e1';
+        Chart.defaults.borderColor = 'rgba(59, 130, 246, 0.2)';
+
+        // Initialize on Page Load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("🎯 Dashboard Loaded - Initializing...");
+            lucide.createIcons();
+            
+            if (!checkAuthentication()) {
+                return;
+            }
+            
+            displayOfficerInfo();
+            loadDashboardData();
+            
+            // Auto-refresh every 30 seconds
+            setInterval(loadDashboardData, 30000);
+        });
+
+        // Authentication Check
+        function checkAuthentication() {
+            const token = sessionStorage.getItem('authToken');
+            if (!token) {
+                console.warn("⚠️ No authentication token found");
+                alert('⚠️ Please login first to access the dashboard.');
+                window.location.href = 'index.html';
+                return false;
+            }
+            return true;
+        }
+
+        // Display Officer Info
+        function displayOfficerInfo() {
+            const officerDataStr = sessionStorage.getItem('officerData');
+            if (officerDataStr) {
+                try {
+                    const officer = JSON.parse(officerDataStr);
+                    document.getElementById('officerNameDisplay').textContent = officer.name || 'Officer';
+                } catch (e) {
+                    console.error('Error parsing officer data:', e);
+                }
+            }
+        }
+
+        // Handle Logout
+        function handleLogout(event) {
+            event.preventDefault();
+            
+            sessionStorage.removeItem('authToken');
+            sessionStorage.removeItem('officerData');
+            
+            if (cityChart) cityChart.destroy();
+            if (categoryChart) categoryChart.destroy();
+            if (trendChart) trendChart.destroy();
+            
+            console.log("👋 Logging out...");
+            window.location.href = 'index.html';
+        }
+
+        // Show Success Message
+        function showSuccess(message) {
+            const successEl = document.getElementById('successMessage');
+            const textEl = document.getElementById('successText');
+            textEl.textContent = message;
+            successEl.classList.add('show');
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                successEl.classList.remove('show');
+            }, 4000);
+        }
+
+        // Show Error Message
+        function showError(message) {
+            const errorEl = document.getElementById('errorMessage');
+            const textEl = document.getElementById('errorText');
+            textEl.textContent = message;
+            errorEl.classList.add('show');
+            lucide.createIcons();
+        }
+
+        // Hide Error Message
+        function hideError() {
+            document.getElementById('errorMessage').classList.remove('show');
+        }
+
+        // Mark Report as Resolved
+        async function markAsResolved(reportId, buttonElement) {
+            console.log(`📄 Marking report #${reportId} as resolved...`);
+            
+            buttonElement.disabled = true;
+            const originalText = buttonElement.innerHTML;
+            buttonElement.innerHTML = '<div class="loading-spinner" style="width: 16px; height: 16px; border-width: 2px;"></div>';
+            
+            const token = sessionStorage.getItem('authToken');
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/reports/${reportId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ status: 'resolved' })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to update status: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log("✅ Status updated successfully:", data);
+                
+                showSuccess(`Report #${reportId} marked as resolved!`);
+                
+                await loadDashboardData();
+                
+            } catch (error) {
+                console.error("❌ Error updating status:", error);
+                showError(`Failed to mark report as resolved: ${error.message}`);
+                
+                buttonElement.disabled = false;
+                buttonElement.innerHTML = originalText;
+            }
+        }
+
+        // Load Dashboard Data
+        async function loadDashboardData() {
+            console.log("\n📊 Loading Dashboard Data");
+            console.log("🔗 Backend URL:", BACKEND_URL);
+            console.log("⏰ Timestamp:", new Date().toLocaleString());
+            
+            const token = sessionStorage.getItem('authToken');
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/reports/stats`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                console.log("📡 Response Status:", response.status);
+                
+                if (response.status === 401) {
+                    throw new Error('Session expired. Please login again.');
+                }
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log("✅ Data received:", data);
+                
+                updateStatistics(data);
+                updateCityChart(data.byCityIntensity || {});
+                updateCategoryChart(data.byCategory || {});
+                updateTrendChart(data.monthlyTrend || {});
+                updateReportsTable(data.recentReports || []);
+                
+                hideError();
+                
+            } catch (error) {
+                console.error("❌ Error:", error);
+                
+                if (error.message.includes('Session expired')) {
+                    alert('⚠️ Your session has expired. Please login again.');
+                    sessionStorage.removeItem('authToken');
+                    sessionStorage.removeItem('officerData');
+                    window.location.href = 'index.html';
+                    return;
+                }
+                
+                showError(`Failed to load dashboard data:\n${error.message}`);
+            }
+        }
+
+        // Update Statistics Cards
+        function updateStatistics(data) {
+            console.log("📊 Updating statistics cards...");
+            
+            document.getElementById('totalCases').textContent = data.totalCases || 0;
+            document.getElementById('pendingCases').textContent = data.pendingCases || 0;
+            document.getElementById('resolvedCases').textContent = data.resolvedCases || 0;
+        }
+
+        // Update City Chart
+        function updateCityChart(cityData) {
+            console.log("🏙️ Updating city chart...");
+            
+            const cities = Object.keys(cityData);
+            const counts = Object.values(cityData);
+            
+            if (cities.length === 0) {
+                console.warn("No city data available");
+                return;
+            }
+            
+            const ctx = document.getElementById('cityChart');
+            
+            if (cityChart) {
+                cityChart.destroy();
+            }
+            
+            cityChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: cities,
+                    datasets: [{
+                        label: 'Crime Cases',
+                        data: counts,
+                        backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#cbd5e1',
+                            borderColor: 'rgba(59, 130, 246, 0.5)',
+                            borderWidth: 1,
+                            padding: 12,
+                            displayColors: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#cbd5e1'
+                            },
+                            grid: {
+                                color: 'rgba(59, 130, 246, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#cbd5e1'
+                            },
+                            grid: {
+                                color: 'rgba(59, 130, 246, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update Category Chart
+        function updateCategoryChart(categoryData) {
+            console.log("📋 Updating category chart...");
+            
+            const categories = Object.keys(categoryData);
+            const counts = Object.values(categoryData);
+            
+            if (categories.length === 0) {
+                console.warn("No category data available");
+                return;
+            }
+            
+            const ctx = document.getElementById('categoryChart');
+            
+            if (categoryChart) {
+                categoryChart.destroy();
+            }
+            
+            const colors = [
+                'rgba(239, 68, 68, 0.8)',
+                'rgba(251, 191, 36, 0.8)',
+                'rgba(59, 130, 246, 0.8)',
+                'rgba(16, 185, 129, 0.8)',
+                'rgba(168, 85, 247, 0.8)',
+                'rgba(236, 72, 153, 0.8)',
+                'rgba(20, 184, 166, 0.8)',
+                'rgba(245, 158, 11, 0.8)',
+                'rgba(99, 102, 241, 0.8)',
+                'rgba(34, 197, 94, 0.8)'
+            ];
+            
+            categoryChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: categories,
+                    datasets: [{
+                        data: counts,
+                        backgroundColor: colors,
+                        borderColor: '#1e293b',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: '#cbd5e1',
+                                padding: 15,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#cbd5e1',
+                            borderColor: 'rgba(59, 130, 246, 0.5)',
+                            borderWidth: 1,
+                            padding: 12,
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.parsed || 0;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update Trend Chart
+        function updateTrendChart(trendData) {
+            console.log("📈 Updating trend chart...");
+            
+            const months = Object.keys(trendData);
+            const counts = Object.values(trendData);
+            
+            if (months.length === 0) {
+                console.warn("No trend data available");
+                return;
+            }
+            
+            const ctx = document.getElementById('trendChart');
+            
+            if (trendChart) {
+                trendChart.destroy();
+            }
+            
+            trendChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: 'Crime Reports',
+                        data: counts,
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#cbd5e1',
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#cbd5e1',
+                            borderColor: 'rgba(59, 130, 246, 0.5)',
+                            borderWidth: 1,
+                            padding: 12
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#cbd5e1',
+                                stepSize: 1
+                            },
+                            grid: {
+                                color: 'rgba(59, 130, 246, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#cbd5e1'
+                            },
+                            grid: {
+                                color: 'rgba(59, 130, 246, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update Reports Table
+        function updateReportsTable(reports) {
+            console.log("📋 Updating reports table...", reports.length, "reports");
+            
+            const tbody = document.getElementById('reportsTableBody');
+            
+            if (!reports || reports.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7">
+                            <div class="empty-state">
+                                <i data-lucide="inbox" style="width: 80px; height: 80px;"></i>
+                                <h4>No Reports Found</h4>
+                                <p>There are no crime reports to display at the moment</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                lucide.createIcons();
+                return;
+            }
+            
+            tbody.innerHTML = reports.map(report => {
+                const date = new Date(report.date);
+                const formattedDate = date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                
+                const location = report.place || report.location || 'Unknown';
+                const status = report.status || 'pending';
+                
+                let statusCell;
+                if (status === 'resolved') {
+                    statusCell = `<span class="status-badge status-resolved"><i data-lucide="check-circle" style="width: 16px; height: 16px;"></i> Resolved</span>`;
+                } else {
+                    statusCell = `
+                        <button 
+                            class="btn-resolve" 
+                            onclick="markAsResolved(${report.id}, this)"
+                            title="Mark this report as resolved">
+                            <i data-lucide="check" style="width: 16px; height: 16px;"></i>
+                            Mark as Resolved
+                        </button>
+                    `;
+                }
+                
+                return `
+                    <tr>
+                        <td><strong>#${report.id}</strong></td>
+                        <td>${formattedDate}</td>
+                        <td>${report.crimeType || 'N/A'}</td>
+                        <td>${location}</td>
+                        <td>${report.city || 'Unknown'}</td>
+                        <td><strong>${report.ipc_section || 'N/A'}</strong></td>
+                        <td>${statusCell}</td>
+                    </tr>
+                `;
+            }).join('');
+            
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

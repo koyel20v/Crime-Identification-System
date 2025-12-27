@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Crime Classification System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a8a, #3730a3);
+            padding: 0.75rem 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 35px;
+            height: 35px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            overflow: hidden;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .btn {
+            padding: 0.5rem 1.25rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: #1e3a8a;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, #1e3a8a, #3730a3);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero-banner p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .last-updated {
+            background: #e0e7ff;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section h2 {
+            color: #1e3a8a;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .section h3 {
+            color: #3730a3;
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .section p {
+            color: #64748b;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .section ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section li {
+            color: #64748b;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .highlight-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box strong {
+            color: #92400e;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #dcfce7;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .security-badge i {
+            color: #059669;
+            font-size: 2rem;
+        }
+
+        .security-badge div h3 {
+            color: #059669;
+            margin-bottom: 0.5rem;
+        }
+
+        .security-badge div p {
+            color: #065f46;
+            margin: 0;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #1e3a8a, #3730a3);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #fbbf24;
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner h1 {
+                font-size: 2rem;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .content {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <img src="West_Bengal_Police_Logo.svg.png" alt="Police Badge">
+                </div>
+                <span>Police Dept.</span>
+            </a>
+            <a href="index.html" class="btn btn-outline">Back to Home</a>
+        </div>
+    </header>
+
+    <section class="hero-banner">
+        <h1>Privacy Policy</h1>
+        <p>Your privacy and data security are our top priorities</p>
+    </section>
+
+    <div class="content">
+        <div class="last-updated">
+            <i data-lucide="calendar"></i>
+            Last Updated: January 1, 2025
+        </div>
+
+        <section class="section">
+            <h2>1. Introduction</h2>
+            <p>Welcome to the Crime Classification & Monitoring System. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our system. This platform is designed exclusively for authorized law enforcement personnel.</p>
+            <p>By accessing or using this system, you acknowledge that you have read, understood, and agree to be bound by this Privacy Policy and our Terms of Service.</p>
+        </section>
+
+        <div class="security-badge">
+            <i data-lucide="shield-check"></i>
+            <div>
+                <h3>Your Data is Protected</h3>
+                <p>We employ military-grade encryption and follow strict government security protocols to protect all information.</p>
+            </div>
+        </div>
+
+        <section class="section">
+            <h2>2. Information We Collect</h2>
+            
+            <h3>2.1 Personal Information</h3>
+            <p>When you register and use our system, we collect:</p>
+            <ul>
+                <li>Full name and badge number</li>
+                <li>Department and rank information</li>
+                <li>Email address and phone number</li>
+                <li>Login credentials (encrypted)</li>
+                <li>IP address and device information</li>
+            </ul>
+
+            <h3>2.2 Incident Report Data</h3>
+            <p>When you submit incident reports, we collect:</p>
+            <ul>
+                <li>Crime details and classifications</li>
+                <li>Location and timestamp information</li>
+                <li>Uploaded evidence files and documents</li>
+                <li>Witness and victim information (if applicable)</li>
+                <li>Officer notes and case updates</li>
+            </ul>
+
+            <h3>2.3 System Usage Data</h3>
+            <ul>
+                <li>Login times and access logs</li>
+                <li>Pages viewed and features used</li>
+                <li>Search queries and filter preferences</li>
+                <li>Browser type and operating system</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>3. How We Use Your Information</h2>
+            <p>We use the collected information for the following purposes:</p>
+            <ul>
+                <li><strong>System Operation:</strong> To provide, maintain, and improve our crime classification services</li>
+                <li><strong>Authentication:</strong> To verify your identity and maintain account security</li>
+                <li><strong>Crime Analysis:</strong> To generate statistics, identify patterns, and support investigations</li>
+                <li><strong>Communication:</strong> To send system updates, security alerts, and important notices</li>
+                <li><strong>Compliance:</strong> To meet legal obligations and law enforcement requirements</li>
+                <li><strong>Security:</strong> To detect, prevent, and address fraud, abuse, or security issues</li>
+            </ul>
+        </section>
+
+        <div class="highlight-box">
+            <strong>Important:</strong> We will never sell, rent, or trade your personal information to third parties for marketing purposes. All data is used strictly for law enforcement purposes.
+        </div>
+
+        <section class="section">
+            <h2>4. Data Security</h2>
+            <p>We implement comprehensive security measures to protect your information:</p>
+            
+            <h3>4.1 Technical Safeguards</h3>
+            <ul>
+                <li>256-bit SSL/TLS encryption for all data transmission</li>
+                <li>AES-256 encryption for stored data</li>
+                <li>Multi-factor authentication (MFA) requirements</li>
+                <li>Regular security audits and penetration testing</li>
+                <li>Intrusion detection and prevention systems</li>
+            </ul>
+
+            <h3>4.2 Administrative Safeguards</h3>
+            <ul>
+                <li>Strict access controls and role-based permissions</li>
+                <li>Comprehensive audit trails of all system access</li>
+                <li>Regular security training for authorized personnel</li>
+                <li>Incident response and disaster recovery plans</li>
+            </ul>
+
+            <h3>4.3 Physical Safeguards</h3>
+            <ul>
+                <li>Secure data centers with 24/7 monitoring</li>
+                <li>Redundant backup systems</li>
+                <li>Climate-controlled server environments</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>5. Data Sharing and Disclosure</h2>
+            <p>We may share your information only in the following circumstances:</p>
+            
+            <h3>5.1 Within Law Enforcement</h3>
+            <p>Information may be shared with other authorized law enforcement agencies as required for investigations and case management.</p>
+
+            <h3>5.2 Legal Requirements</h3>
+            <p>We may disclose information when required by law, court order, or government regulations.</p>
+
+            <h3>5.3 Emergency Situations</h3>
+            <p>In cases of imminent danger or threat to public safety, we may share relevant information with appropriate authorities.</p>
+
+            <h3>5.4 Service Providers</h3>
+            <p>We work with trusted service providers who assist in system operation, subject to strict confidentiality agreements.</p>
+        </section>
+
+        <section class="section">
+            <h2>6. Data Retention</h2>
+            <p>We retain your information for as long as necessary to fulfill the purposes outlined in this policy:</p>
+            <ul>
+                <li><strong>Active Accounts:</strong> Information retained while account is active</li>
+                <li><strong>Incident Reports:</strong> Retained according to legal and regulatory requirements (typically 7-10 years)</li>
+                <li><strong>Audit Logs:</strong> Maintained for 3 years minimum</li>
+                <li><strong>Closed Cases:</strong> Archived according to departmental policies</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>7. Your Rights and Choices</h2>
+            <p>As an authorized user, you have the following rights:</p>
+            <ul>
+                <li><strong>Access:</strong> Request access to your personal information</li>
+                <li><strong>Correction:</strong> Request correction of inaccurate information</li>
+                <li><strong>Account Management:</strong> Update your profile and preferences</li>
+                <li><strong>Activity Review:</strong> View your login history and system activity</li>
+            </ul>
+            <p>Note: Some rights may be limited due to law enforcement and legal requirements.</p>
+        </section>
+
+        <section class="section">
+            <h2>8. Cookies and Tracking Technologies</h2>
+            <p>We use cookies and similar technologies to:</p>
+            <ul>
+                <li>Maintain your session and authentication status</li>
+                <li>Remember your preferences and settings</li>
+                <li>Analyze system usage and performance</li>
+                <li>Enhance security and detect unauthorized access</li>
+            </ul>
+            <p>You can control cookie settings through your browser, but disabling cookies may limit system functionality.</p>
+        </section>
+
+        <section class="section">
+            <h2>9. Third-Party Links</h2>
+            <p>Our system may contain links to third-party websites or services. We are not responsible for the privacy practices of these external sites. We encourage you to review their privacy policies.</p>
+        </section>
+
+        <section class="section">
+            <h2>10. Changes to This Policy</h2>
+            <p>We may update this Privacy Policy periodically to reflect changes in our practices or legal requirements. We will notify you of significant changes through:</p>
+            <ul>
+                <li>Email notifications to your registered address</li>
+                <li>Prominent notices on the system dashboard</li>
+                <li>Updated "Last Modified" date at the top of this policy</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>11. Contact Information</h2>
+            <p>If you have questions, concerns, or requests regarding this Privacy Policy, please contact:</p>
+            <ul>
+                <li><strong>Data Protection Officer:</strong> dpo@crimesystem.gov.in</li>
+                <li><strong>Privacy Department:</strong> privacy@crimesystem.gov.in</li>
+                <li><strong>Phone:</strong> 1800-XXX-XXXX</li>
+                <li><strong>Address:</strong> West Bengal Police Headquarters, Nabanna, Howrah - 711102</li>
+            </ul>
+        </section>
+
+        <div class="highlight-box">
+            <strong>Compliance Notice:</strong> This system complies with the Information Technology Act, 2000, and related rules including the Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011.
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="help.html">Help</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
+        </div>
+        <p>&copy; 2025 Crime Classification & Monitoring System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
